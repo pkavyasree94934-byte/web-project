@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Job Application Form</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #f0f4f8;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
+
+    .form-container {
+      background: #fff;
+      padding: 30px 40px;
+      border-radius: 10px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+      max-width: 400px;
+      width: 100%;
+    }
+
+    h2 {
+      text-align: center;
+      color: #333;
+    }
+
+    label {
+      display: block;
+      margin-top: 15px;
+      font-weight: bold;
+    }
+
+    input, textarea {
+      width: 100%;
+      padding: 10px;
+      margin-top: 5px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+    }
+
+    button {
+      margin-top: 20px;
+      width: 100%;
+      padding: 10px;
+      background-color: #007bff;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      font-size: 16px;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background-color: #0056b3;
+    }
+
+    .error {
+      color: red;
+      font-size: 14px;
+      margin-top: 5px;
+    }
+  </style>
+</head>
+<body>
+  <div class="form-container">
+    <h2>Job Application Form</h2>
+    <form id="jobForm" onsubmit="return validateForm()">
+      <label for="name">Name:</label>
+      <input type="text" id="name" />
+      <div id="nameError" class="error"></div>
+
+      <label for="email">Email:</label>
+      <input type="text" id="email" />
+      <div id="emailError" class="error"></div>
+
+      <label for="phone">Phone:</label>
+      <input type="text" id="phone" />
+      <div id="phoneError" class="error"></div>
+
+      <label for="message">Message:</label>
+      <textarea id="message" rows="4"></textarea>
+      <div id="messageError" class="error"></div>
+
+      <button type="submit">Submit</button>
+    </form>
+  </div>
+
+  <script>
+    function validateForm() {
+      
+      const name = document.getElementById("name").value.trim();
+      const email = document.getElementById("email").value.trim();
+      const phone = document.getElementById("phone").value.trim();
+      const message = document.getElementById("message").value.trim();
+      const nameError = document.getElementById("nameError");
+      const emailError = document.getElementById("emailError");
+      const phoneError = document.getElementById("phoneError");
+      const messageError = document.getElementById("messageError");
+
+      nameError.textContent = "";
+      emailError.textContent = "";
+      phoneError.textContent = "";
+      messageError.textContent = "";
+
+      let valid = true;
+
+      if (name === "") {
+        nameError.textContent = "Name is required.";
+        valid = false;
+      }
+
+      const emailPattern = /^[^ ]+@[^ ]+\.[a-z]{2,3}$/;
+      if (email === "") {
+        emailError.textContent = "Email is required.";
+        valid = false;
+      } else if (!emailPattern.test(email)) {
+        emailError.textContent = "Enter a valid email.";
+        valid = false;
+      }
+
+      const phonePattern = /^[0-9]{10}$/;
+      if (phone === "") {
+        phoneError.textContent = "Phone number is required.";
+        valid = false;
+      } else if (!phonePattern.test(phone)) {
+        phoneError.textContent = "Enter a 10-digit number.";
+        valid = false;
+      }
+
+      if (message === "") {
+        messageError.textContent = "Message is required.";
+        valid = false;
+      }
+
+      return valid;
+    }
+  </script>
+</body>
+</html>
