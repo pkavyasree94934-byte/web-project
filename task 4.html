@@ -3,140 +3,129 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Job Application Form</title>
+  <title>Little Journey 🌿</title>
   <style>
+    * {
+      box-sizing: border-box;
+      font-family: 'Poppins', sans-serif;
+      margin: 0;
+      padding: 0;
+    }
+
     body {
-      font-family: Arial, sans-serif;
-      background: #f0f4f8;
+      background: linear-gradient(135deg, #b3ffab, #12fff7);
+      height: 100vh;
       display: flex;
       justify-content: center;
       align-items: center;
-      height: 100vh;
+      overflow: hidden;
+      transition: background 0.6s ease-in-out;
     }
 
-    .form-container {
-      background: #fff;
-      padding: 30px 40px;
-      border-radius: 10px;
-      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
-      max-width: 400px;
-      width: 100%;
-    }
-
-    h2 {
+    .screen {
+      display: none;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
       text-align: center;
-      color: #333;
-    }
-
-    label {
-      display: block;
-      margin-top: 15px;
-      font-weight: bold;
-    }
-
-    input, textarea {
       width: 100%;
-      padding: 10px;
-      margin-top: 5px;
-      border: 1px solid #ccc;
-      border-radius: 5px;
+      height: 100%;
+      padding: 20px;
+      animation: fadeIn 0.6s ease;
+    }
+
+    .screen.active {
+      display: flex;
+    }
+
+    h1 {
+      font-size: 2.2rem;
+      color: #044343;
+      margin-bottom: 15px;
+    }
+
+    p {
+      font-size: 1rem;
+      color: #064c4c;
+      max-width: 400px;
+      line-height: 1.6;
+      margin-bottom: 30px;
     }
 
     button {
-      margin-top: 20px;
-      width: 100%;
-      padding: 10px;
-      background-color: #007bff;
+      background-color: #00796b;
       color: white;
       border: none;
-      border-radius: 5px;
-      font-size: 16px;
+      padding: 12px 28px;
+      border-radius: 12px;
+      font-size: 1rem;
       cursor: pointer;
+      transition: 0.3s;
+      margin: 8px;
     }
 
     button:hover {
-      background-color: #0056b3;
+      background-color: #004d40;
+      transform: scale(1.05);
     }
 
-    .error {
-      color: red;
-      font-size: 14px;
-      margin-top: 5px;
+    .emoji {
+      font-size: 3rem;
+      margin-bottom: 15px;
+    }
+
+    @keyframes fadeIn {
+      from {opacity: 0; transform: translateY(15px);}
+      to {opacity: 1; transform: translateY(0);}
     }
   </style>
 </head>
 <body>
-  <div class="form-container">
-    <h2>Job Application Form</h2>
-    <form id="jobForm" onsubmit="return validateForm()">
-      <label for="name">Name:</label>
-      <input type="text" id="name" />
-      <div id="nameError" class="error"></div>
+  <!-- 🏠 Home Screen -->
+  <div id="home" class="screen active">
+    <div class="emoji">🏠</div>
+    <h1>Hey there 👋</h1>
+    <p>Welcome to your little journey. Let’s explore some cozy corners of this mini world together.</p>
+    <button onclick="goTo('about')">Start Journey →</button>
+  </div>
 
-      <label for="email">Email:</label>
-      <input type="text" id="email" />
-      <div id="emailError" class="error"></div>
+  <!-- 💫 About Screen -->
+  <div id="about" class="screen">
+    <div class="emoji">💫</div>
+    <h1>About This Journey</h1>
+    <p>This is a simple web experience built with HTML, CSS, and JS.  
+       Just like flipping through moments — we move between pages softly and freely.</p>
+    <button onclick="goTo('contact')">Next: Contact →</button>
+    <button onclick="goTo('home')">← Back Home</button>
+  </div>
 
-      <label for="phone">Phone:</label>
-      <input type="text" id="phone" />
-      <div id="phoneError" class="error"></div>
-
-      <label for="message">Message:</label>
-      <textarea id="message" rows="4"></textarea>
-      <div id="messageError" class="error"></div>
-
-      <button type="submit">Submit</button>
-    </form>
+  <!-- ✉️ Contact Screen -->
+  <div id="contact" class="screen">
+    <div class="emoji">✉️</div>
+    <h1>Let’s Stay in Touch</h1>
+    <p>If you have something to share or just want to say hi —  
+       reach out anytime at <strong>hello@littlejourney.app</strong>.</p>
+    <button onclick="goTo('about')">← Back to About</button>
   </div>
 
   <script>
-    function validateForm() {
-      
-      const name = document.getElementById("name").value.trim();
-      const email = document.getElementById("email").value.trim();
-      const phone = document.getElementById("phone").value.trim();
-      const message = document.getElementById("message").value.trim();
-      const nameError = document.getElementById("nameError");
-      const emailError = document.getElementById("emailError");
-      const phoneError = document.getElementById("phoneError");
-      const messageError = document.getElementById("messageError");
+    // Function to navigate between screens (like Navigator.push/pop)
+    function goTo(screenId) {
+      document.querySelectorAll('.screen').forEach(screen => {
+        screen.classList.remove('active');
+      });
 
-      nameError.textContent = "";
-      emailError.textContent = "";
-      phoneError.textContent = "";
-      messageError.textContent = "";
+      const target = document.getElementById(screenId);
+      target.classList.add('active');
 
-      let valid = true;
-
-      if (name === "") {
-        nameError.textContent = "Name is required.";
-        valid = false;
+      // Change background mood dynamically 🌈
+      if (screenId === 'home') {
+        document.body.style.background = 'linear-gradient(135deg, #b3ffab, #12fff7)';
+      } else if (screenId === 'about') {
+        document.body.style.background = 'linear-gradient(135deg, #fff1eb, #ace0f9)';
+      } else if (screenId === 'contact') {
+        document.body.style.background = 'linear-gradient(135deg, #c3cfe2, #c3e0e5)';
       }
-
-      const emailPattern = /^[^ ]+@[^ ]+\.[a-z]{2,3}$/;
-      if (email === "") {
-        emailError.textContent = "Email is required.";
-        valid = false;
-      } else if (!emailPattern.test(email)) {
-        emailError.textContent = "Enter a valid email.";
-        valid = false;
-      }
-
-      const phonePattern = /^[0-9]{10}$/;
-      if (phone === "") {
-        phoneError.textContent = "Phone number is required.";
-        valid = false;
-      } else if (!phonePattern.test(phone)) {
-        phoneError.textContent = "Enter a 10-digit number.";
-        valid = false;
-      }
-
-      if (message === "") {
-        messageError.textContent = "Message is required.";
-        valid = false;
-      }
-
-      return valid;
     }
   </script>
 </body>
